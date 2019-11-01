@@ -15,6 +15,7 @@ public class VerletPoint implements IGameObject {
     private PointF oldPosition;
     private Paint paint;
     private PointF rotationCenter;
+    //
 
 
     public VerletPoint(int x, int y) {
