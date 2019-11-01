@@ -16,6 +16,7 @@ public class VerletPoint implements IGameObject {
     private Paint paint;
     private PointF rotationCenter;
     //
+    // pasha git rofler
 
 
     public VerletPoint(int x, int y) {
