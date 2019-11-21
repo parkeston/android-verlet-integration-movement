@@ -19,15 +19,14 @@ import com.example.lab3_verlet.verlet.VerletSquare;
 
 import java.util.ArrayList;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback
-{
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameLoop gameLoop;
     private LineRenderer lineRenderer;
 
     private IGameObject previewItem;
     private ArrayList<IGameObject> gameObjects;
 
-    public static int screenWidth ;
+    public static int screenWidth;
     public static int screenHeight;
 
     public GameView(Context context) {
@@ -36,24 +35,23 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public GameView(Context context, AttributeSet attrs) {
-        super(context,attrs);
+        super(context, attrs);
         init(context);
 
     }
 
     public GameView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context,attrs,defStyleAttr);
+        super(context, attrs, defStyleAttr);
         init(context);
 
     }
 
     public GameView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context,attrs,defStyleAttr,defStyleRes);
+        super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
 
-    public void init(Context context)
-    {
+    public void init(Context context) {
         getHolder().addCallback(this);
         setFocusable(true);
 
@@ -69,14 +67,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
         gameObjects = new ArrayList<>();
     }
 
-    public void clearView()
-    {
+    public void clearView() {
         gameObjects.clear();
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        gameLoop = new GameLoop(getHolder(),this);
+        gameLoop = new GameLoop(getHolder(), this);
 
         gameLoop.setRunning(true);
         gameLoop.start();
@@ -91,13 +88,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         boolean retry = true;
 
-        while (retry)
-        {
+        while (retry) {
             try {
                 gameLoop.setRunning(false);
                 gameLoop.join();
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
                 continue;
             }
@@ -106,47 +101,44 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
-    public void update()
-    {
-        for(IGameObject gameObject : gameObjects)
+    public void update() {
+        for (IGameObject gameObject : gameObjects)
             gameObject.update();
     }
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         canvas.drawColor(Color.WHITE);
 
-        if(previewItem !=null)
+        if (previewItem != null)
             previewItem.render(canvas);
 
         lineRenderer.render(canvas);
 
-        for(IGameObject gameObject : gameObjects)
+        for (IGameObject gameObject : gameObjects)
             gameObject.render(canvas);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction())
-        {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 previewItem = EnvironmentSettings.SPAWN_BOX ?
-                        new VerletSquare((int)event.getX(),(int)event.getY())
-                        : new VerletPoint((int)event.getX(),(int)event.getY());
+                        new VerletSquare((int) event.getX(), (int) event.getY())
+                        : new VerletPoint((int) event.getX(), (int) event.getY());
                 break;
             case MotionEvent.ACTION_MOVE:
-                lineRenderer.setPoints(previewItem.getPosition(),new PointF(event.getX(),event.getY()));
+                lineRenderer.setPoints(previewItem.getPosition(), new PointF(event.getX(), event.getY()));
                 break;
             case MotionEvent.ACTION_UP:
-                if(EnvironmentSettings.SPAWN_BOX)
-                    gameObjects.add(new VerletSquare((int)previewItem.getPosition().x,(int)previewItem.getPosition().y,
-                            (int)event.getX(),(int)event.getY()));
+                if (EnvironmentSettings.SPAWN_BOX)
+                    gameObjects.add(new VerletSquare((int) previewItem.getPosition().x, (int) previewItem.getPosition().y,
+                            (int) event.getX(), (int) event.getY()));
                 else
-                    gameObjects.add(new VerletPoint((int)previewItem.getPosition().x,(int)previewItem.getPosition().y,
-                            (int)event.getX(),(int)event.getY()));
+                    gameObjects.add(new VerletPoint((int) previewItem.getPosition().x, (int) previewItem.getPosition().y,
+                            (int) event.getX(), (int) event.getY()));
 
                 previewItem = null;
                 lineRenderer.clear();

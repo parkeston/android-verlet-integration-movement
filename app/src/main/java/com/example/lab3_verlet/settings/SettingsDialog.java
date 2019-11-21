@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.example.lab3_verlet.engine.IGameManager;
 import com.example.lab3_verlet.R;
+import com.example.lab3_verlet.engine.IGameManager;
 
 
 /**
@@ -25,8 +25,6 @@ public class SettingsDialog extends DialogFragment {
 
     private CheckBox spawnBox;
     private EditText launchSpeed, accelerationX, accelerationY, bounceFriction, drag, angularSpeed;
-    private CheckBox filled, sticksVisibility;
-    private EditText sticksWidth, pointsSize, boxSize;
 
     private IGameManager gameManager;
 
@@ -37,39 +35,33 @@ public class SettingsDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.fragment_settings_dialog,null))
-            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //save settings...
-                    EnvironmentSettings.SPAWN_BOX = spawnBox.isChecked();
-                    EnvironmentSettings.MAX_LAUNCH_SPEED = Integer.parseInt(launchSpeed.getText().toString());
-                    EnvironmentSettings.ACCELERATION.x = Float.parseFloat(accelerationX.getText().toString());
-                    EnvironmentSettings.ACCELERATION.y = Float.parseFloat(accelerationY.getText().toString());
-                    EnvironmentSettings.BOUNCE_FRICTION = Float.parseFloat(bounceFriction.getText().toString());
-                    EnvironmentSettings.DRAG = Float.parseFloat(drag.getText().toString());
-                    EnvironmentSettings.ANGULAR_SPEED = Integer.parseInt(angularSpeed.getText().toString());
-
-                    VisualSettings.FILLED = filled.isChecked();
-                    VisualSettings.STICKS_VISIBILE = sticksVisibility.isChecked();
-                    VisualSettings.STICKS_WIDTH = Integer.parseInt(sticksWidth.getText().toString());
-                    VisualSettings.POINT_SIZE = Integer.parseInt(pointsSize.getText().toString());
-                    VisualSettings.BOX_SIZE = Integer.parseInt(boxSize.getText().toString());
-                }
-            })
-            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    getDialog().cancel();
-                }
-            })
-        .setNeutralButton("Clear view", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                System.out.println("clear view!");
-                gameManager.onClearView();
-            }
-        });
+        builder.setView(inflater.inflate(R.layout.fragment_settings_dialog, null))
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //save settings...
+                        EnvironmentSettings.SPAWN_BOX = spawnBox.isChecked();
+                        EnvironmentSettings.MAX_LAUNCH_SPEED = Integer.parseInt(launchSpeed.getText().toString());
+                        EnvironmentSettings.ACCELERATION.x = Float.parseFloat(accelerationX.getText().toString());
+                        EnvironmentSettings.ACCELERATION.y = Float.parseFloat(accelerationY.getText().toString());
+                        EnvironmentSettings.BOUNCE_FRICTION = Float.parseFloat(bounceFriction.getText().toString());
+                        EnvironmentSettings.DRAG = Float.parseFloat(drag.getText().toString());
+                        EnvironmentSettings.ANGULAR_SPEED = Integer.parseInt(angularSpeed.getText().toString());
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getDialog().cancel();
+                    }
+                })
+                .setNeutralButton("Clear view", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        System.out.println("clear view!");
+                        gameManager.onClearView();
+                    }
+                });
 
         return builder.create();
     }
@@ -100,18 +92,6 @@ public class SettingsDialog extends DialogFragment {
         bounceFriction.setText(String.valueOf(EnvironmentSettings.BOUNCE_FRICTION));
         drag.setText(String.valueOf(EnvironmentSettings.DRAG));
         angularSpeed.setText(String.valueOf(EnvironmentSettings.ANGULAR_SPEED));
-
-        filled = getDialog().findViewById(R.id.filled);
-        sticksVisibility = getDialog().findViewById(R.id.sticksVisibility);
-        sticksWidth = getDialog().findViewById(R.id.sticksWidth);
-        pointsSize = getDialog().findViewById(R.id.pointSize);
-        boxSize = getDialog().findViewById(R.id.boxSize);
-
-        filled.setChecked(VisualSettings.FILLED);
-        sticksVisibility.setChecked(VisualSettings.STICKS_VISIBILE);
-        sticksWidth.setText(String.valueOf(VisualSettings.STICKS_WIDTH));
-        pointsSize.setText(String.valueOf(VisualSettings.POINT_SIZE));
-        boxSize.setText(String.valueOf(VisualSettings.BOX_SIZE));
     }
 
 }

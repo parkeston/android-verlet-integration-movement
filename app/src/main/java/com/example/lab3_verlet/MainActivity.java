@@ -1,12 +1,12 @@
 package com.example.lab3_verlet;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.lab3_verlet.engine.GameView;
 import com.example.lab3_verlet.engine.IGameManager;
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements IGameManager {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_main);
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements IGameManager {
 
                 FragmentManager manager = getSupportFragmentManager();
                 SettingsDialog settingsDialog = new SettingsDialog();
-                settingsDialog.show(manager,"dialog");
+                settingsDialog.show(manager, "dialog");
             }
         });
     }

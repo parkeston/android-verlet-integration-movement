@@ -4,8 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
-public class GameLoop extends Thread
-{
+public class GameLoop extends Thread {
     public static final int MAX_FPS = 60;
     private float averageFPS;
 
@@ -65,13 +64,12 @@ public class GameLoop extends Thread
             }
 
             frameTime = System.nanoTime() - frameStartTime;
-            Time.deltaTime = frameTime/1000000000f; //sync?
-            totalTime +=frameTime;
+            Time.deltaTime = frameTime / 1000000000f; //sync?
+            totalTime += frameTime;
             frameCount++;
 
-            if(frameCount == MAX_FPS)
-            {
-                averageFPS = 1000/( (totalTime/frameCount)/1000000);
+            if (frameCount == MAX_FPS) {
+                averageFPS = 1000 / ((totalTime / frameCount) / 1000000);
                 frameCount = 0;
                 totalTime = 0;
 

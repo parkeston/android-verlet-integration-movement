@@ -4,20 +4,16 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
-import com.example.lab3_verlet.settings.EnvironmentSettings;
 import com.example.lab3_verlet.engine.GameView;
 import com.example.lab3_verlet.engine.IGameObject;
 import com.example.lab3_verlet.engine.Time;
-import com.example.lab3_verlet.settings.VisualSettings;
+import com.example.lab3_verlet.settings.EnvironmentSettings;
 
 public class VerletPoint implements IGameObject {
     private PointF position;
     private PointF oldPosition;
     private Paint paint;
     private PointF rotationCenter;
-    //
-    // pasha git rofler
-
 
     public VerletPoint(int x, int y) {
         position = new PointF();
@@ -47,9 +43,8 @@ public class VerletPoint implements IGameObject {
         oldPosition.y = yOld;
     }
 
-    public VerletPoint(int x, int y, int xOld, int yOld, PointF rotationCenter)
-    {
-        this(x,y,xOld,yOld);
+    public VerletPoint(int x, int y, int xOld, int yOld, PointF rotationCenter) {
+        this(x, y, xOld, yOld);
         this.rotationCenter = rotationCenter;
     }
 
@@ -60,31 +55,30 @@ public class VerletPoint implements IGameObject {
     }
 
     @Override
-    public void update()
-    {
-        float vx = (position.x - oldPosition.x ) * EnvironmentSettings.DRAG;
+    public void update() {
+        float vx = (position.x - oldPosition.x) * EnvironmentSettings.DRAG;
         float vy = (position.y - oldPosition.y) * EnvironmentSettings.DRAG;
 
         //2*pos - oldPos + adt^2 = pos + pos - olpod + adt^2
 
-        if(EnvironmentSettings.ANGULAR_SPEED!=0 && rotationCenter!=null)
-            position = ApplyRotation(EnvironmentSettings.ANGULAR_SPEED*Time.deltaTime);
+        if (EnvironmentSettings.ANGULAR_SPEED != 0 && rotationCenter != null)
+            position = ApplyRotation(EnvironmentSettings.ANGULAR_SPEED * Time.deltaTime);
 
         oldPosition.x = position.x;
         oldPosition.y = position.y;
 
-        position.offset(vx + EnvironmentSettings.ACCELERATION.x * Time.deltaTime * Time.deltaTime, vy + EnvironmentSettings.ACCELERATION.y * Time.deltaTime*Time.deltaTime);
+        position.offset(vx + EnvironmentSettings.ACCELERATION.x * Time.deltaTime * Time.deltaTime,
+                vy + EnvironmentSettings.ACCELERATION.y * Time.deltaTime * Time.deltaTime);
 
         ConstrainToScreen();
     }
 
-    private PointF ApplyRotation(double angle)
-    {
+    private PointF ApplyRotation(double angle) {
         angle = Math.toRadians(angle);
-        float dx = (float) (Math.cos(angle) * (position.x - rotationCenter.x) - Math.sin(angle) * (position.y-rotationCenter.y));
+        float dx = (float) (Math.cos(angle) * (position.x - rotationCenter.x) - Math.sin(angle) * (position.y - rotationCenter.y));
         float dy = (float) (Math.sin(angle) * (position.x - rotationCenter.x) + Math.cos(angle) * (position.y - rotationCenter.y));
 
-        return new PointF(rotationCenter.x + dx,rotationCenter.y + dy);
+        return new PointF(rotationCenter.x + dx, rotationCenter.y + dy);
     }
 
     @Override
