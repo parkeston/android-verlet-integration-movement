@@ -20,7 +20,7 @@ public class VerletSquare implements IGameObject {
     private int size;
 
     private final int FILL_COLOR = Color.BLACK;
-    private final int BOX_SIZE = 300;
+    private final int BOX_SIZE = 200;
 
     public VerletSquare(int x, int y) {
         init(x, y);

@@ -1,6 +1,7 @@
 package com.example.lab3_verlet.verlet;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
@@ -12,14 +13,16 @@ public class VerletStick implements IGameObject {
     private Paint paint;
     private float dx, dy;
 
+    private final int STICKS_COLOR = Color.GREEN;
+
     public VerletStick(VerletPoint p0, VerletPoint p1) {
         this.p0 = p0;
         this.p1 = p1;
         length = getLength();
 
         paint = new Paint();
-        paint.setColor(VisualSettings.STICKS_COLOR);
-        paint.setStrokeWidth(VisualSettings.STICKS_WIDTH);
+        paint.setColor(STICKS_COLOR);
+        paint.setStrokeWidth(5);
     }
 
     private double getLength() {
@@ -31,8 +34,7 @@ public class VerletStick implements IGameObject {
 
     @Override
     public void render(Canvas canvas) {
-        if (VisualSettings.STICKS_VISIBILE)
-            canvas.drawLine(p0.getPosition().x, p0.getPosition().y, p1.getPosition().x, p1.getPosition().y, paint);
+        canvas.drawLine(p0.getPosition().x, p0.getPosition().y, p1.getPosition().x, p1.getPosition().y, paint);
     }
 
     @Override

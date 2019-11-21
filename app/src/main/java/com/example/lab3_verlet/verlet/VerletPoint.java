@@ -17,7 +17,7 @@ public class VerletPoint implements IGameObject {
     private PointF rotationCenter;
 
     private final int POINT_COLOR = Color.RED;
-    private final int POINT_SIZE = 20;
+    private final int POINT_SIZE = 30;
 
     public VerletPoint(int x, int y) {
         position = new PointF();

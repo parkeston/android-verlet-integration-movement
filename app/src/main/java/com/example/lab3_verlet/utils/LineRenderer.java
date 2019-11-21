@@ -13,6 +13,7 @@ public class LineRenderer {
     public LineRenderer(int color) {
         paint = new Paint();
         paint.setColor(color);
+        paint.setStrokeWidth(5);
     }
 
     private boolean needToDraw;
