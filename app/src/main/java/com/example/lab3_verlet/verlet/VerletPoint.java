@@ -1,6 +1,7 @@
 package com.example.lab3_verlet.verlet;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
@@ -15,6 +16,9 @@ public class VerletPoint implements IGameObject {
     private Paint paint;
     private PointF rotationCenter;
 
+    private final int POINT_COLOR = Color.RED;
+    private final int POINT_SIZE = 20;
+
     public VerletPoint(int x, int y) {
         position = new PointF();
         position.x = x;
@@ -23,7 +27,7 @@ public class VerletPoint implements IGameObject {
         rotationCenter = null;
 
         paint = new Paint();
-        paint.setColor(VisualSettings.POINT_COLOR);
+        paint.setColor(POINT_COLOR);
     }
 
     public VerletPoint(int x, int y, PointF rotationCenter) {
@@ -51,7 +55,7 @@ public class VerletPoint implements IGameObject {
 
     @Override
     public void render(Canvas canvas) {
-        canvas.drawCircle(position.x, position.y, VisualSettings.POINT_SIZE / 2, paint);
+        canvas.drawCircle(position.x, position.y, POINT_SIZE / 2, paint);
     }
 
     @Override
@@ -90,7 +94,7 @@ public class VerletPoint implements IGameObject {
         float vx = (position.x - oldPosition.x) * EnvironmentSettings.DRAG;
         float vy = (position.y - oldPosition.y) * EnvironmentSettings.DRAG;
 
-        float halfSize = VisualSettings.POINT_SIZE / 2f;
+        float halfSize = POINT_SIZE / 2f;
         float bounceFriction = EnvironmentSettings.BOUNCE_FRICTION;
 
         if (position.x > GameView.screenWidth - halfSize) {

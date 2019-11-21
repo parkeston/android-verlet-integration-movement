@@ -6,7 +6,6 @@ import android.view.SurfaceHolder;
 
 public class GameLoop extends Thread {
     public static final int MAX_FPS = 60;
-    private float averageFPS;
 
     private SurfaceHolder surfaceHolder;
     private GameView gameView;
@@ -28,11 +27,9 @@ public class GameLoop extends Thread {
     public void run() {
         long frameStartTime;
         long frameTime = 0;
-        long totalTime = 0;
         long frameTargetTime = 1000 / MAX_FPS;
         long frameWaitTime;
         long timeMillis;
-        int frameCount = 0;
 
         Canvas canvas = null;
 
@@ -65,16 +62,6 @@ public class GameLoop extends Thread {
 
             frameTime = System.nanoTime() - frameStartTime;
             Time.deltaTime = frameTime / 1000000000f; //sync?
-            totalTime += frameTime;
-            frameCount++;
-
-            if (frameCount == MAX_FPS) {
-                averageFPS = 1000 / ((totalTime / frameCount) / 1000000);
-                frameCount = 0;
-                totalTime = 0;
-
-                //System.out.println(averageFPS);
-            }
         }
     }
 }

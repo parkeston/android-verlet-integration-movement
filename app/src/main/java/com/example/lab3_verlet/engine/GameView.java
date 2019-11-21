@@ -60,7 +60,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-
         screenWidth = size.x;
         screenHeight = size.y;
 
